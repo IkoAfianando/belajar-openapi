@@ -1,0 +1,37 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Todolist RESTful API",
+    "version": "1",
+    "description": "OpenAPI for Todolist RESTful API",
+    "termsOfService": "https://github.com/IkoAfianando",
+    "contact": {
+      "name": "Iko Afianando",
+      "email": "ikoafianando123@gmail.com",
+      "url": "https://github.com/IkoAfianando"
+    },
+    "license": {
+      "name": "APCACHE 2.0",
+      "url": "https://www.apache.org/license/LICENSE-2.0"
+
+    }
+  },
+  "servers": [{
+    "url": "https://{environment}.programmingwithiko.com/api/v1",
+    "description": "Todolist RESTful API Server",
+    "variables": {
+      "environment": {
+        "default": "dev",
+        "description": "Server Environment",
+        "enum": [
+          "dev",
+          "qa",
+          "prod"
+        ]
+      }
+    }
+  }],
+  "paths": {
+
+  }
+}
