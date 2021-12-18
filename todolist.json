@@ -40,9 +40,6 @@
       "get" : {
         "summary": "Get All Todolist",
         "description": "Get all todolist by default",
-        "responses": {
-
-        },
         "parameters": [
           {
             "name": "include done",
@@ -50,7 +47,9 @@
             "required": false,
             "description": "Include done todolist in the result",
             "schema": {
-              "type": "boolean"
+              "type": "boolean",
+              "nullable": true,
+              "default": false,
             }
           },
           {
@@ -59,10 +58,16 @@
             "required": false,
             "description": "Filter todolist by name",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "nullable": true,
+              "minLength": 1,
+              "maxLength": 100
             }
           }
-        ]
+        ],
+        "responses": {
+
+        }
       },
       "post": {
         "summary": "Create New Todolist",
@@ -83,7 +88,9 @@
             "required": true,
             "description": "Todolist id for updated",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
             }
           }
         ],
@@ -101,7 +108,9 @@
             "required": true,
             "description": "Todolist id for deleted",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
             }
           }
         ],
