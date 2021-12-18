@@ -11,7 +11,7 @@
       "url": "https://github.com/IkoAfianando"
     },
     "license": {
-      "name": "APCACHE 2.0",
+      "name": "APACHE 2.0",
       "url": "https://www.apache.org/license/LICENSE-2.0"
     }
   },
@@ -23,7 +23,11 @@
         "environment": {
           "default": "dev",
           "description": "Server Environment",
-          "enum": ["dev", "qa", "prod"]
+          "enum": [
+            "dev",
+            "qa",
+            "prod"
+          ]
         }
       }
     }
@@ -35,6 +39,14 @@
   "paths": {
     "/todolist": {
       "get": {
+        "security": [
+          {
+            "TodolistAuth": []
+          }
+        ],
+        "tags": [
+          "Todolist"
+        ],
         "summary": "Get All Todolist",
         "description": "Get all todolist by default",
         "parameters": [
@@ -76,30 +88,9 @@
           "200": {
             "description": "Success get All Todolist",
             "content": {
-              "application/json" : {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "priority": {
-                        "type": "number",
-                        "format": "int32"
-                      },
-                      "tags": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
+              "application/json": {
+                "schema":{
+                  "$ref": "#/components/schemas/ArrayTodolist"
                 },
                 "examples": {
                   "success": {
@@ -109,13 +100,19 @@
                         "id": 1,
                         "name": "Java",
                         "priority": 3,
-                        "tags": ["Java", "Programming"]
+                        "tags": [
+                          "Java",
+                          "Programming"
+                        ]
                       },
                       {
                         "id": 2,
                         "name": "PHP",
                         "priority": 5,
-                        "tags": ["PHP", "Programming"]
+                        "tags": [
+                          "PHP",
+                          "Programming"
+                        ]
                       }
                     ]
                   }
@@ -126,6 +123,14 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "TodolistAuth": []
+          }
+        ],
+        "tags": [
+          "Todolist"
+        ],
         "summary": "Create New Todolist",
         "description": "Create new todolist to database",
         "requestBody": {
@@ -133,29 +138,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "minLength": 1,
-                    "required": true
-                  },
-                  "priority": {
-                    "type": "integer",
-                    "format": "int32",
-                    "required": true,
-                    "default": 1
-                  },
-                  "tags": {
-                    "type": "array",
-                    "required": false,
-                    "minItems": 1,
-                    "items": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  }
-                }
+                "$ref": "#/components/schemas/CreateOrUpdateTodolist"
               },
               "examples": {
                 "java": {
@@ -163,7 +146,10 @@
                   "value": {
                     "name": "JAVA",
                     "priority": 3,
-                    "tags": ["Java", "Programming"]
+                    "tags": [
+                      "Java",
+                      "Programming"
+                    ]
                   }
                 },
                 "php": {
@@ -171,7 +157,10 @@
                   "value": {
                     "name": "PHP",
                     "priority": 5,
-                    "tags": ["PHP", "Programming"]
+                    "tags": [
+                      "PHP",
+                      "Programming"
+                    ]
                   }
                 }
               }
@@ -184,28 +173,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "priority": {
-                        "type": "number",
-                        "format": "int32"
-                      },
-                      "tags": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/Todolist"
                 },
                 "examples": {
                   "java": {
@@ -239,29 +207,19 @@
     },
     "/todollist/{todolistId}": {
       "put": {
+        "security": [
+          {
+            "TodolistAuth": []
+          }
+        ],
+        "tags": [
+          "Todolist"
+        ],
         "summary": "Update existing Todolist",
         "description": "Update existing todolist in database",
         "parameters": [
           {
-            "name": "todolistId",
-            "in": "path",
-            "required": true,
-            "description": "Todolist id for updated",
-            "schema": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            },
-            "examples": {
-              "java": {
-                "value": "1",
-                "description": "Sample TodolistId for Java"
-              },
-              "php": {
-                "value": "2",
-                "description": "Sample TodolistId for PHP"
-              }
-            }
+           "$ref": "#/components/parameters/TodolistId"
           }
         ],
         "requestBody": {
@@ -269,29 +227,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "minLength": 1,
-                    "required": true
-                  },
-                  "priority": {
-                    "type": "integer",
-                    "format": "int32",
-                    "default": 1,
-                    "required": true
-                  },
-                  "tags": {
-                    "type": "array",
-                    "required": false,
-                    "minItems": 1,
-                    "items": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  }
-                }
+                "$ref": "#/components/schemas/CreateOrUpdateTodolist"
               },
               "examples": {
                 "java": {
@@ -299,7 +235,10 @@
                   "value": {
                     "name": "JAVA",
                     "priority": 3,
-                    "tags": ["Java", "Programming"]
+                    "tags": [
+                      "Java",
+                      "Programming"
+                    ]
                   }
                 },
                 "php": {
@@ -307,7 +246,10 @@
                   "value": {
                     "name": "PHP",
                     "priority": 5,
-                    "tags": ["PHP", "Programming"]
+                    "tags": [
+                      "PHP",
+                      "Programming"
+                    ]
                   }
                 }
               }
@@ -320,28 +262,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "priority": {
-                        "type": "number",
-                        "format": "int32"
-                      },
-                      "tags": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/Todolist"
                 },
                 "examples": {
                   "java": {
@@ -373,19 +294,19 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "TodolistAuth": []
+          }
+        ],
+        "tags": [
+          "Todolist"
+        ],
         "summary": "Delete existing Todolist",
         "description": "Delete existing todolist in database",
         "parameters": [
           {
-            "name": "todolistId",
-            "in": "path",
-            "required": true,
-            "description": "Todolist id for deleted",
-            "schema": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            }
+            "$ref": "#/components/parameters/TodolistId"
           }
         ],
         "responses": {
@@ -435,6 +356,86 @@
               }
             }
           }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "TodolistAuth": {
+        "description": "Authentication for Todolist RESTful API",
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "parameters": {
+      "TodolistId": {
+        "name": "todolistId",
+        "in": "path",
+        "required": true,
+        "description": "Todolist id for updated",
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "examples": {
+          "java": {
+            "value": "1",
+            "description": "Sample TodolistId for Java"
+          },
+          "php": {
+            "value": "2",
+            "description": "Sample TodolistId for PHP"
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Todolist": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "number",
+            "format": "int32"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateOrUpdateTodolist": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "number",
+            "format": "int32"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ArrayTodolist": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Todolist"
         }
       }
     }
