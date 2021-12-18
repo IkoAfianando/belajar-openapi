@@ -31,7 +31,43 @@
       }
     }
   }],
+  "externalDocs": {
+    "description": "Linkedin Iko Afianando",
+    "url": "https://linkedin.com/in/ikoafianando"
+  },
   "paths": {
+    "/todolist": {
+      "get" : {
+        "summary": "Get All Todolist",
+        "description": "Get all todolist by default",
+        "responses": {
+
+        }
+      },
+      "post": {
+        "summary": "Create New Todolist",
+        "description": "Create new todolist to database",
+        "responses": {
+
+        }
+      }
+    },
+    "/todollist/{todolistId}": {
+      "put": {
+        "summary": "Update existing Todolist",
+        "description": "Update existing todolist in database",
+        "responses": {
+
+        }
+      },
+      "delete": {
+        "summary": "Delete existing Todolist",
+        "description": "Delete existing todolist in database",
+        "responses": {
+
+        }
+      }
+    }
 
   }
 }
